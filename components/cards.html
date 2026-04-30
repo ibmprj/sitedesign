@@ -1,0 +1,110 @@
+<!-- CARD COMPONENTS -->
+
+<!-- Section Card with Header -->
+<div class="section-card">
+  <div class="section-header">
+    <h2 class="section-title">My Strategies</h2>
+    <a href="strategies.html" class="view-all">View all</a>
+  </div>
+  <!-- Content goes here -->
+</div>
+
+<!-- Content Card -->
+<div class="content-card">
+  <h2 class="content-card-title">About the strategy</h2>
+  <p>Strategy description goes here.</p>
+</div>
+
+<!-- Strategy Card -->
+<div class="strat-card">
+  <div class="strat-icon" style="background: rgba(96,165,250,0.1);">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M4 16 C4 10 8 6 14 9" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      <circle cx="14" cy="9" r="2" fill="#60A5FA"/>
+    </svg>
+  </div>
+  <div class="strat-info">
+    <div class="strat-name">BANKNIFTY Options scalping</div>
+    <div class="strat-tags">
+      <span class="badge badge-intraday">Intraday</span>
+      <span class="badge badge-options">Options</span>
+    </div>
+  </div>
+  <div class="strat-meta">
+    <div class="meta-col">
+      <span class="meta-label">Min amount</span>
+      <span class="meta-value">₹3,10,000</span>
+    </div>
+    <div class="meta-col">
+      <span class="meta-label">Max drawdown</span>
+      <span class="meta-value">1.7%</span>
+    </div>
+    <div class="meta-col">
+      <span class="meta-label">Backtest period</span>
+      <span class="meta-value">1.0 Years</span>
+    </div>
+    <div class="meta-col">
+      <span class="meta-label">Risk type</span>
+      <span class="meta-value">Medium risk</span>
+    </div>
+  </div>
+  <a href="strategy-details.html" class="btn btn-primary btn-sm">More details</a>
+</div>
+
+<!-- Dashboard Item -->
+<div class="dash-item">
+  <div class="dash-icon-wrap">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="18" fill="rgba(212,175,55,0.12)"/>
+      <path d="M11 26V17M15.5 26V13M20 26V18.5M24.5 26V11" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="dash-item-text">
+    <div class="dash-item-name">Backtest (0)</div>
+    <div class="dash-item-sub">Analyse past performance</div>
+  </div>
+</div>
+
+<!-- Dashboard Grid -->
+<div class="dash-grid" style="grid-template-columns: repeat(3, 1fr);">
+  <!-- Use .dash-item elements inside -->
+</div>
+
+<!-- Stats Row -->
+<div class="stats-row">
+  <div class="stat-cell">
+    <div class="stat-label">Total return</div>
+    <div class="stat-value pos">+₹12,500</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Win rate</div>
+    <div class="stat-value">68%</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Total trades</div>
+    <div class="stat-value">142</div>
+  </div>
+</div>
+
+<!-- Sidebar Gradient Card (sgc) -->
+<div class="sgc">
+  <div class="sgc-label">Net P&amp;L</div>
+  <div class="sgc-sub">Overall profit of all the strategies</div>
+  <div class="sgc-value">₹ 0.00</div>
+</div>
+
+<!-- Backtest Panel -->
+<div class="backtest-panel">
+  <div class="backtest-panel-title">Want to backtest before subscribing?</div>
+  <div class="bp-meta-grid">
+    <div>
+      <div class="bp-meta-label">Min amount</div>
+      <div class="bp-meta-value">₹310000</div>
+    </div>
+    <div>
+      <div class="bp-meta-label">Max drawdown</div>
+      <div class="bp-meta-value">1.68%</div>
+    </div>
+  </div>
+  <button class="btn-backtest-now">Backtest now!</button>
+</div>

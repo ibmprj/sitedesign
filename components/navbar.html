@@ -1,0 +1,52 @@
+<!-- NAVBAR COMPONENT -->
+<!-- Usage: Include this in all pages, set the `activePage` variable to highlight the active link -->
+<!-- Parameters: activePage (dashboard|strategies|portfolio|orders|live-signals) -->
+
+<nav class="navbar">
+  <div class="nav-brand">
+    <button class="hamburger" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="dashboard.html" class="logo">
+      <span class="logo-main"><span>RNT</span>Studio</span>
+      <span class="logo-sub">GWC</span>
+    </a>
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="dashboard.html"    class="nav-link [[${activePage == 'dashboard' ? 'active' : ''}]]">Dashboard</a></li>
+    <li><a href="strategies.html"   class="nav-link [[${activePage == 'strategies' ? 'active' : ''}]]">Strategies</a></li>
+    <li><a href="portfolio.html"    class="nav-link [[${activePage == 'portfolio' ? 'active' : ''}]]">Portfolio</a></li>
+    <li><a href="orders.html"       class="nav-link [[${activePage == 'orders' ? 'active' : ''}]]">Orders</a></li>
+    <li><a href="live-signals.html" class="nav-link [[${activePage == 'live-signals' ? 'active' : ''}]]">Live signals</a></li>
+    <li><a href="#"                 class="nav-link">Market Place</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="ticker">
+      <span class="ticker-label">NIFTY</span>
+      <span class="ticker-value">24322.20</span>
+      <span class="ticker-change up">+1.36%</span>
+    </div>
+    <div class="kill-switch">
+      <span class="ks-label">Kill Switch</span>
+      <label class="toggle">
+        <input type="checkbox">
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+    <div class="user-menu">
+      <div class="user-avatar">A</div>
+      <div class="user-info">
+        <span class="user-id">GPR31</span>
+        <span class="user-broker">GWC</span>
+      </div>
+      <span class="caret">▾</span>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.getElementById('menuBtn')?.addEventListener('click', () =>
+    document.getElementById('navLinks').classList.toggle('open'));
+</script>

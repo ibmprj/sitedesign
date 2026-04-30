@@ -1,0 +1,92 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['../**/*.html'],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        gold: {
+          50: '#FFF9E6',
+          100: '#FFF3CC',
+          200: '#FFE699',
+          300: '#FFD966',
+          400: '#FFCC33',
+          500: '#D4AF37',
+          600: '#B8962E',
+          700: '#9A7D25',
+          800: '#7C641C',
+        },
+        platinum: {
+          50: '#FFFFFF',
+          100: '#F8F9FA',
+          200: '#E9ECEF',
+          300: '#DEE2E6',
+          400: '#CED4DA',
+          500: '#ADB5BD',
+          600: '#6C757D',
+          700: '#495057',
+        },
+        surface: {
+          page: '#08080a',
+          card: '#0f0f12',
+          'card-hover': '#141418',
+          navbar: '#0a0a0d',
+          elevated: '#16161b',
+        },
+        border: {
+          DEFAULT: '#1a1a1f',
+          gold: 'rgba(212,175,55,0.3)',
+          platinum: 'rgba(229,228,226,0.15)',
+        },
+        pos: '#22c55e',
+        neg: '#ef4444',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
+      fontSize: {
+        '2xs': ['10.5px', { lineHeight: '1.4' }],
+        xs: ['11px', { lineHeight: '1.5' }],
+        sm: ['12px', { lineHeight: '1.5' }],
+        base: ['13px', { lineHeight: '1.5' }],
+        md: ['14px', { lineHeight: '1.5' }],
+        lg: ['15px', { lineHeight: '1.5' }],
+        xl: ['16px', { lineHeight: '1.5' }],
+        '2xl': ['20px', { lineHeight: '1.3' }],
+        '3xl': ['22px', { lineHeight: '1.3' }],
+        '4xl': ['24px', { lineHeight: '1.2' }],
+      },
+      spacing: {
+        'navbar-h': '60px',
+        'sidebar-w': '290px',
+        'gap': '20px',
+      },
+      borderRadius: {
+        xs: '4px',
+        sm: '6px',
+        md: '12px',
+        lg: '16px',
+        xl: '20px',
+        full: '9999px',
+      },
+      boxShadow: {
+        xs: '0 1px 2px rgba(0,0,0,.4)',
+        sm: '0 2px 6px rgba(0,0,0,.5)',
+        md: '0 8px 20px rgba(0,0,0,.6)',
+        lg: '0 20px 40px rgba(0,0,0,.7)',
+        gold: '0 0 20px rgba(212,175,55,0.15)',
+        'gold-sm': '0 0 10px rgba(212,175,55,0.1)',
+        'gold-lg': '0 4px 16px rgba(212,175,55,0.4)',
+      },
+      transitionDuration: {
+        DEFAULT: '150ms',
+        md: '250ms',
+      },
+      transitionTimingFunction: {
+        DEFAULT: 'ease',
+      },
+    },
+  },
+  plugins: [],
+};

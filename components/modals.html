@@ -1,0 +1,51 @@
+<!-- MODAL COMPONENTS -->
+
+<!-- Subscribe Modal -->
+<div class="modal-backdrop" id="subModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('subModal').classList.remove('open')">×</button>
+    <h2 class="modal-title">BANKNIFTY Options scalping</h2>
+    <div class="form-group">
+      <div class="form-label">Lot size</div>
+      <select class="form-select">
+        <option>1 Lot &nbsp;&nbsp; REQ Margin ₹310000</option>
+        <option>2 Lots &nbsp;&nbsp; REQ Margin ₹620000</option>
+      </select>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" class="check-input" id="termsCheck" checked>
+      <label for="termsCheck" class="check-label">
+        I have read and agreed to <a href="#">Terms and Conditions</a>
+      </label>
+    </div>
+    <div class="alert alert-warning">
+      <strong>Important Note:</strong> Daily login is required for successful order execution.
+    </div>
+    <button class="btn-subscribe" onclick="document.getElementById('subModal').classList.remove('open');alert('Successfully subscribed!')">Subscribe to Strategy</button>
+  </div>
+</div>
+
+<!-- Unsubscribe Modal -->
+<div class="modal-backdrop" id="unsubModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('unsubModal').classList.remove('open')">×</button>
+    <h2 class="modal-title">Confirm Unsubscription</h2>
+    <p class="modal-subtitle">Are you sure you want to unsubscribe from <strong>BANKNIFTY Options scalping</strong>?</p>
+    <div class="alert alert-warning">
+      <strong>Warning:</strong> Unsubscribing will stop all future trades for this strategy.
+    </div>
+    <button class="btn-subscribe" style="background:var(--red-600);" onclick="document.getElementById('unsubModal').classList.remove('open');alert('Unsubscribed successfully.')">
+      Confirm Unsubscribe
+    </button>
+  </div>
+</div>
+
+<!-- Usage: Add onclick handler to open modal -->
+<!-- <button onclick="document.getElementById('subModal').classList.add('open')">Subscribe</button> -->
+
+<!-- Close on backdrop click -->
+<script>
+  document.querySelectorAll('.modal-backdrop').forEach(bd => {
+    bd.addEventListener('click', e => { if (e.target === bd) bd.classList.remove('open'); });
+  });
+</script>
