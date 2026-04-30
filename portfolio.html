@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — RNT Studio</title>
+  <link rel="stylesheet" href="tailwind/main.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <button class="hamburger" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="dashboard.html" class="logo">
+      <span class="logo-main"><span>RNT</span>Studio</span>
+      <span class="logo-sub">GWC</span>
+    </a>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="dashboard.html"    class="nav-link">Dashboard</a></li>
+    <li><a href="strategies.html"   class="nav-link">Strategies</a></li>
+    <li><a href="portfolio.html"    class="nav-link active">Portfolio</a></li>
+    <li><a href="orders.html"       class="nav-link">Orders</a></li>
+    <li><a href="live-signals.html" class="nav-link">Live signals</a></li>
+    <li><a href="#"                 class="nav-link">Market Place</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="ticker">
+      <span class="ticker-label">NIFTY</span>
+      <span class="ticker-value">24322.20</span>
+      <span class="ticker-change up">+1.36%</span>
+    </div>
+    <div class="kill-switch">
+      <span class="ks-label">Kill Switch</span>
+      <label class="toggle">
+        <input type="checkbox">
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+    <div class="user-menu">
+      <div class="user-avatar">G</div>
+      <div class="user-info">
+        <span class="user-id">GPR31</span>
+        <span class="user-broker">GWC</span>
+      </div>
+      <span class="caret">▾</span>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page-wrapper">
+  <main class="main-content">
+
+    <div class="page-header">
+      <h1 class="page-title">Portfolio</h1>
+      <div class="tabs" style="margin-bottom:0;">
+        <div class="tab active">Live</div>
+        <div class="tab">Forward Test</div>
+      </div>
+    </div>
+
+    <div class="pf-top">
+      <div class="pf-pnl-group">
+        <span class="pf-label">Net P&amp;L</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="pf-value pos">+ ₹0.00</span>
+          <label class="charges-toggle">
+            <label class="toggle" style="width:28px;height:16px;">
+              <input type="checkbox">
+              <span class="toggle-track"></span>
+            </label>
+            Include charges
+          </label>
+        </div>
+      </div>
+      <div class="pf-stat-group">
+        <span class="pf-label">Overall return %</span>
+        <span class="pf-value">0.00%</span>
+      </div>
+      <div class="pf-stat-group" style="border-left:1px solid var(--border);padding-left:24px;">
+        <span class="pf-label">Open positions</span>
+        <span class="pf-value">0</span>
+      </div>
+      <div class="pf-stat-group" style="padding-left:24px;">
+        <span class="pf-label">Available funds</span>
+        <span class="pf-value">₹0</span>
+      </div>
+      <div class="pf-stat-group">
+        <span class="pf-label">Utilised funds</span>
+        <span class="pf-value">₹0</span>
+      </div>
+      <button class="btn btn-outline btn-sm add-funds-btn">Add funds</button>
+    </div>
+
+    <div class="tabs" style="margin-bottom:16px;">
+      <div class="tab active">All</div>
+      <div class="tab">Subscribed</div>
+      <div class="tab">My Strategies</div>
+    </div>
+
+    <!-- Strategy Row -->
+    <div class="pf-strat-row">
+      <div style="width:40px;height:40px;border-radius:10px;background:rgba(96,165,250,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(96,165,250,0.2);">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 14 C4 9 8 5 14 8" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="14" cy="8" r="2" fill="#60A5FA"/></svg>
+      </div>
+      <div class="pf-strat-main">
+        <div class="pf-strat-name">BANKNIFTY Options scalping</div>
+        <div class="pf-strat-tags">
+          <span class="badge badge-intraday">Intraday</span>
+          <span class="badge badge-options">Options</span>
+        </div>
+      </div>
+      <div class="pf-strat-metrics">
+        <div class="pf-metric">
+          <span class="pf-metric-label">Alloted amount</span>
+          <span class="pf-metric-value">310000.00</span>
+        </div>
+        <div class="pf-metric">
+          <span class="pf-metric-label">Current value</span>
+          <span class="pf-metric-value">310000.00</span>
+        </div>
+        <div class="pf-metric">
+          <span class="pf-metric-label">Return %</span>
+          <span class="pf-metric-value">0.00</span>
+        </div>
+        <div class="pf-metric">
+          <span class="pf-metric-label">Net P&amp;L</span>
+          <span class="pf-metric-value">0.00</span>
+        </div>
+      </div>
+      <a href="strategy-details.html" class="btn btn-primary btn-sm">Check details</a>
+    </div>
+
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="right-sidebar">
+    <!-- P&L Heatmap -->
+    <div class="card">
+      <div class="heatmap-header">
+        <span class="heatmap-title">P&amp;L Heatmap</span>
+        <div class="heatmap-range">
+          <span>Dec 29, 2025 – Apr 29, 2026</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="1.5" stroke="#9CA3AF" stroke-width="1.3"/><path d="M2 5h10" stroke="#9CA3AF" stroke-width="1.2"/><path d="M5 2v3M9 2v3" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="heatmap-stats">
+        <div>
+          <div class="heatmap-stat-label">Overall P&amp;L</div>
+          <div class="heatmap-stat-value neg">₹ 0.00</div>
+        </div>
+        <div>
+          <div class="heatmap-stat-label">Win rate %</div>
+          <div class="heatmap-stat-value">0 %</div>
+        </div>
+      </div>
+      <div class="heatmap-months">
+        <div class="heatmap-month-col">
+          <div class="heatmap-month-label">Jan</div>
+          <div class="heatmap-row"><div class="heatmap-cell">1</div><div class="heatmap-cell">2</div><div class="heatmap-cell">3</div><div class="heatmap-cell">4</div><div class="heatmap-cell">5</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">6</div><div class="heatmap-cell">7</div><div class="heatmap-cell">8</div><div class="heatmap-cell">9</div><div class="heatmap-cell">10</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">11</div><div class="heatmap-cell">12</div><div class="heatmap-cell">13</div><div class="heatmap-cell">14</div><div class="heatmap-cell">15</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">16</div><div class="heatmap-cell">17</div><div class="heatmap-cell">18</div><div class="heatmap-cell">19</div><div class="heatmap-cell">20</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">21</div><div class="heatmap-cell">22</div><div class="heatmap-cell">23</div><div class="heatmap-cell">24</div><div class="heatmap-cell">25</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">26</div><div class="heatmap-cell">27</div><div class="heatmap-cell">28</div><div class="heatmap-cell">29</div><div class="heatmap-cell">30</div></div>
+        </div>
+        <div class="heatmap-month-col">
+          <div class="heatmap-month-label">Feb</div>
+          <div class="heatmap-row"><div class="heatmap-cell"></div><div class="heatmap-cell"></div><div class="heatmap-cell">1</div><div class="heatmap-cell">2</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">3</div><div class="heatmap-cell">4</div><div class="heatmap-cell">5</div><div class="heatmap-cell">6</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">7</div><div class="heatmap-cell">8</div><div class="heatmap-cell">9</div><div class="heatmap-cell">10</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">11</div><div class="heatmap-cell">12</div><div class="heatmap-cell">13</div><div class="heatmap-cell">14</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">15</div><div class="heatmap-cell">16</div><div class="heatmap-cell">17</div><div class="heatmap-cell">18</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">19</div><div class="heatmap-cell">20</div><div class="heatmap-cell">21</div><div class="heatmap-cell">22</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">23</div><div class="heatmap-cell">24</div><div class="heatmap-cell">25</div><div class="heatmap-cell">26</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">27</div><div class="heatmap-cell">28</div></div>
+        </div>
+        <div class="heatmap-month-col">
+          <div class="heatmap-month-label">Mar</div>
+          <div class="heatmap-row"><div class="heatmap-cell"></div><div class="heatmap-cell"></div><div class="heatmap-cell"></div><div class="heatmap-cell">1</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">2</div><div class="heatmap-cell">3</div><div class="heatmap-cell">4</div><div class="heatmap-cell">5</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">6</div><div class="heatmap-cell">7</div><div class="heatmap-cell">8</div><div class="heatmap-cell">9</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">10</div><div class="heatmap-cell">11</div><div class="heatmap-cell">12</div><div class="heatmap-cell">13</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">14</div><div class="heatmap-cell">15</div><div class="heatmap-cell">16</div><div class="heatmap-cell">17</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">18</div><div class="heatmap-cell">19</div><div class="heatmap-cell">20</div><div class="heatmap-cell">21</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">22</div><div class="heatmap-cell">23</div><div class="heatmap-cell">24</div><div class="heatmap-cell">25</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">26</div><div class="heatmap-cell">27</div><div class="heatmap-cell">28</div><div class="heatmap-cell">29</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">30</div><div class="heatmap-cell">31</div></div>
+        </div>
+        <div class="heatmap-month-col">
+          <div class="heatmap-month-label">Apr</div>
+          <div class="heatmap-row"><div class="heatmap-cell">1</div><div class="heatmap-cell">2</div><div class="heatmap-cell">3</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">4</div><div class="heatmap-cell">5</div><div class="heatmap-cell">6</div><div class="heatmap-cell">7</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">8</div><div class="heatmap-cell">9</div><div class="heatmap-cell">10</div><div class="heatmap-cell">11</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">12</div><div class="heatmap-cell">13</div><div class="heatmap-cell">14</div><div class="heatmap-cell">15</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">16</div><div class="heatmap-cell">17</div><div class="heatmap-cell">18</div><div class="heatmap-cell">19</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">20</div><div class="heatmap-cell">21</div><div class="heatmap-cell">22</div><div class="heatmap-cell">23</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">24</div><div class="heatmap-cell">25</div><div class="heatmap-cell">26</div><div class="heatmap-cell">27</div></div>
+          <div class="heatmap-row"><div class="heatmap-cell">28</div><div class="heatmap-cell">29</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommended Strategies -->
+    <div class="card" style="padding:16px 18px;">
+      <div style="font-size:13.5px;font-weight:600;color:var(--text-base);margin-bottom:5px;font-family:'Playfair Display',serif;">Recommended Strategies</div>
+      <div style="font-size:11.5px;color:var(--text-muted);margin-bottom:14px;">Strategies based on your existing subscriptions</div>
+      <div style="font-size:13px;color:var(--text-muted);padding:14px 0;text-align:center;">No recommendations at the moment.</div>
+    </div>
+  </aside>
+</div>
+
+<button class="chat-fab" title="Support">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<script>
+  document.getElementById('menuBtn')?.addEventListener('click', () =>
+    document.getElementById('navLinks').classList.toggle('open'));
+  document.querySelectorAll('.tab').forEach(t =>
+    t.addEventListener('click', function() {
+      this.closest('.tabs')?.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+    }));
+</script>
+</body>
+</html>

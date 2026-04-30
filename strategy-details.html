@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BANKNIFTY Options scalping — RNT Studio</title>
+  <link rel="stylesheet" href="tailwind/main.css">
+  <style>
+    .perf-bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 120px;
+      padding: 12px 0 0;
+      overflow-x: auto;
+    }
+    .perf-bar {
+      flex-shrink: 0;
+      width: 14px;
+      border-radius: 2px 2px 0 0;
+      transition: opacity 0.15s;
+      cursor: pointer;
+    }
+    .perf-bar:hover { opacity: .75; }
+    .perf-bar.pos { background: linear-gradient(to top, var(--gold-600), var(--gold-400)); }
+    .perf-bar.neg { background: linear-gradient(to top, var(--red-600), var(--red-400)); border-radius: 0 0 2px 2px; align-self: flex-start; }
+
+    .perf-chart-wrap {
+      position: relative;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 8px;
+    }
+    .perf-zero-line {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
+    }
+    .perf-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .perf-nav-btn {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 11px;
+      transition: all var(--t);
+    }
+    .perf-nav-btn:hover { background: rgba(212,175,55,0.1); border-color: var(--border-gold); color: var(--gold-500); }
+    .perf-page-input {
+      width: 36px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 4px;
+      font-size: 12px;
+      background: var(--bg-elevated);
+      color: var(--text-base);
+    }
+    .backtest-results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .bt-cell {
+      background: var(--bg-card);
+      padding: 13px 17px;
+    }
+    .bt-cell-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 5px; letter-spacing: 0.3px; text-transform: uppercase; }
+    .bt-cell-value { font-size: 14px; font-weight: 700; color: var(--text-base); font-family: 'Playfair Display', serif; }
+    .bt-cell-value.pos { color: var(--color-success); }
+    .bt-cell-value.neg { color: var(--color-danger); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <button class="hamburger" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="dashboard.html" class="logo">
+      <span class="logo-main"><span>RNT</span>Studio</span>
+      <span class="logo-sub">GWC</span>
+    </a>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="dashboard.html"    class="nav-link">Dashboard</a></li>
+    <li><a href="strategies.html"   class="nav-link active">Strategies</a></li>
+    <li><a href="portfolio.html"    class="nav-link">Portfolio</a></li>
+    <li><a href="orders.html"       class="nav-link">Orders</a></li>
+    <li><a href="live-signals.html" class="nav-link">Live signals</a></li>
+    <li><a href="#"                 class="nav-link">Market Place</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="ticker">
+      <span class="ticker-label">NIFTY</span>
+      <span class="ticker-value">24322.20</span>
+      <span class="ticker-change up">+1.36%</span>
+    </div>
+    <div class="kill-switch">
+      <span class="ks-label">Kill Switch</span>
+      <label class="toggle">
+        <input type="checkbox">
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+    <div class="user-menu">
+      <div class="user-avatar">G</div>
+      <div class="user-info">
+        <span class="user-id">GPR31</span>
+        <span class="user-broker">GWC</span>
+      </div>
+      <span class="caret">▾</span>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page-wrapper">
+  <main class="main-content">
+
+    <!-- Strategy Header -->
+    <div class="strat-detail-header">
+      <a href="strategies.html" class="strat-back-link">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </a>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div>
+          <h1 class="strat-detail-title">BANKNIFTY Options scalping</h1>
+          <p class="strat-detail-sub">1-min strategy based on intraday candles</p>
+        </div>
+      </div>
+      <div class="strat-detail-stats">
+        <div class="sd-stat">
+          <div class="sd-stat-label">Capital</div>
+          <div class="sd-stat-value">₹3,10,000</div>
+        </div>
+        <div class="sd-stat">
+          <div class="sd-stat-label">Win Rate %</div>
+          <div class="sd-stat-value">60.15%</div>
+        </div>
+        <div class="sd-stat">
+          <div class="sd-stat-label">Net profit</div>
+          <div class="sd-stat-value pos">₹2205.00</div>
+        </div>
+        <div class="sd-stat">
+          <div class="sd-stat-label">Longest win streak</div>
+          <div class="sd-stat-value">11</div>
+        </div>
+        <div class="sd-stat">
+          <div class="sd-stat-label">Longest losing streak</div>
+          <div class="sd-stat-value">6</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About the strategy -->
+    <div class="content-card">
+      <h2 class="content-card-title">About the strategy</h2>
+      <p>A 2-Candle Breakout Strategy for BANKNIFTY Options, crafted for traders looking to capture strong early momentum using simple price action. Operating on a 1-minute timeframe, the strategy is built around the behavior of the market's opening candles and uses a well-defined breakout mechanism.</p>
+    </div>
+
+    <!-- Key Points -->
+    <div class="content-card">
+      <h2 class="content-card-title">Key points for this strategy</h2>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
+        Days: M, T, W, Th, F &nbsp;&nbsp; Trading days: M, T, W, Th, F &nbsp;&nbsp; Order type: Option selling
+      </div>
+      <ul class="key-points">
+        <li>Intraday strategy focused on BANKNIFTY Options using a 1-minute chart.</li>
+        <li>Waits for a specific 2-candle pattern right after market open, exceeding the first two candles.</li>
+        <li>Entry signal triggers only after confirmation on the second 1-minute candle after open.</li>
+        <li>Uses only when there's a confirmed breakout after the second candle closes.</li>
+        <li>Uses a 1-lot reward to risk at the opposite side of the breakout.</li>
+        <li>About risk-taking to use the initial stop into stop loss.</li>
+        <li>Ideal for traders who prefer clear, rule-based, price action-based decision-making.</li>
+      </ul>
+    </div>
+
+    <!-- Backtest Results -->
+    <div class="content-card">
+      <h2 class="content-card-title">Backtest results</h2>
+      <div class="backtest-results-grid">
+        <div class="bt-cell">
+          <div class="bt-cell-label">Capital</div>
+          <div class="bt-cell-value">₹310000</div>
+        </div>
+        <div class="bt-cell">
+          <div class="bt-cell-label">Overall profit</div>
+          <div class="bt-cell-value pos">₹2205.00</div>
+        </div>
+        <div class="bt-cell">
+          <div class="bt-cell-label">Return %</div>
+          <div class="bt-cell-value pos">00.90%</div>
+        </div>
+        <div class="bt-cell">
+          <div class="bt-cell-label">Net profit</div>
+          <div class="bt-cell-value pos">₹2205</div>
+        </div>
+        <div class="bt-cell">
+          <div class="bt-cell-label">Max Loss</div>
+          <div class="bt-cell-value neg">-4662.00</div>
+        </div>
+        <div class="bt-cell">
+          <div class="bt-cell-label">Max drawdown</div>
+          <div class="bt-cell-value neg">-5440.75</div>
+        </div>
+        <div class="bt-cell">
+          <div class="bt-cell-label">Win days</div>
+          <div class="bt-cell-value">101</div>
+        </div>
+        <div class="bt-cell">
+          <div class="bt-cell-label">Losing days</div>
+          <div class="bt-cell-value">106</div>
+        </div>
+        <div class="bt-cell">
+          <div class="bt-cell-label">Win rate %</div>
+          <div class="bt-cell-value">59.88%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance Chart -->
+    <div class="content-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <h2 class="content-card-title" style="margin-bottom:0;">Performance</h2>
+        <span style="font-size:12px;color:var(--text-muted);">Select bar to view trades</span>
+      </div>
+      <div class="perf-chart-wrap">
+        <div class="perf-bar-chart" id="perfBars"></div>
+        <div class="perf-zero-line"></div>
+      </div>
+      <div class="perf-nav">
+        <button class="perf-nav-btn">‹</button>
+        <span style="font-size:12px;color:var(--text-muted);">Page</span>
+        <input type="number" class="perf-page-input" value="7" min="1" max="7">
+        <span style="font-size:12px;color:var(--text-muted);">of 7</span>
+        <button class="perf-nav-btn">›</button>
+      </div>
+    </div>
+
+    <!-- Note -->
+    <div class="alert alert-note" style="border-radius:var(--r-md);margin-bottom:14px;">
+      <strong>Note:</strong> The performance and signals are based on virtual trade results and may vary for real trades across different users due to factors such as slippage and changes in bid/ask prices for limit orders. To view the actual strategy performance and detailed trade information, kindly visit the Portfolio page.
+    </div>
+
+    <!-- Signals Table -->
+    <div class="content-card">
+      <div class="signals-header">
+        <div>
+          <div style="font-size:15px;font-weight:600;color:var(--text-base);">Signals</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Showing signals of 29 Apr 2026</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="signals-pnl-total neg">-783.00</div>
+          <div class="signals-pnl-label">Overall P&amp;L</div>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Instrument</th>
+              <th>Entry time</th>
+              <th>Exit time</th>
+              <th>Buy price</th>
+              <th>Sell price</th>
+              <th>P&amp;L</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td style="font-weight:600;">BANKNIFTY26MAY26C55600</td>
+              <td>29 Apr 2026, 09:18</td>
+              <td>29 Apr 2026, 09:54</td>
+              <td>1358</td>
+              <td>1290</td>
+              <td class="td-neg">-2040</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td style="font-weight:600;">BANKNIFTY26MAY26P55500</td>
+              <td>29 Apr 2026, 09:54</td>
+              <td>29 Apr 2026, 10:01</td>
+              <td>920.15</td>
+              <td>962.05</td>
+              <td class="td-pos">1257</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      <strong>Disclaimer:</strong> This strategy is built on historical data and tested logic, however, past performance is not indicative of future results. All trading decisions are the user's responsibility, and 1ly Algo does not guarantee profits. Please trade with discipline and proper risk management.
+    </p>
+
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="right-sidebar">
+    <div class="backtest-panel">
+      <div class="bp-meta-grid">
+        <div>
+          <div class="bp-meta-label">Min amount</div>
+          <div class="bp-meta-value">₹310000</div>
+        </div>
+        <div>
+          <div class="bp-meta-label">Max drawdown</div>
+          <div class="bp-meta-value">1.68%</div>
+        </div>
+        <div>
+          <div class="bp-meta-label">Backtest period</div>
+          <div class="bp-meta-value">1 year 9 days</div>
+        </div>
+        <div>
+          <div class="bp-meta-label">Risk type</div>
+          <div class="bp-meta-value">Medium</div>
+        </div>
+      </div>
+      <button class="btn-unsubscribe" onclick="document.getElementById('unsubModal').classList.add('open')">Unsubscribe</button>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.6;">By subscribing to the strategy you understand that trading involves risk and past performance is not a guarantee of future returns. Manually interfering with the signals might affect the performance.</p>
+    </div>
+
+    <div class="backtest-panel">
+      <div class="backtest-panel-title">Want to backtest before subscribing?</div>
+      <div class="form-group">
+        <div class="form-label">Lot size</div>
+        <select class="form-select">
+          <option>1 Lot &nbsp;&nbsp; REQ Margin ₹310000</option>
+          <option>2 Lots &nbsp;&nbsp; REQ Margin ₹620000</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">Date range</div>
+        <button class="date-range-btn">
+          <span>Jul 2 2025 - Apr 29 2026</span>
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <button class="btn-backtest-now" onclick="alert('Re-running backtest...')">Backtest now!</button>
+    </div>
+  </aside>
+</div>
+
+<!-- SUBSCRIBE MODAL -->
+<div class="modal-backdrop" id="subModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('subModal').classList.remove('open')">×</button>
+    <h2 class="modal-title">BANKNIFTY Options scalping</h2>
+    <div class="form-group">
+      <div class="form-label">Lot size</div>
+      <select class="form-select">
+        <option>1 Lot &nbsp;&nbsp; REQ Margin ₹310000</option>
+        <option>2 Lots &nbsp;&nbsp; REQ Margin ₹620000</option>
+      </select>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" class="check-input" id="termsCheck" checked>
+      <label for="termsCheck" class="check-label">
+        I have read and agreed to <a href="#">Terms and Conditions</a>
+      </label>
+    </div>
+    <div class="alert alert-warning">
+      <strong>Important Note:</strong> Daily login is required for successful order execution. If you do not log in on the same day, your subscribed strategy orders will not be executed.
+    </div>
+    <button class="btn-subscribe" onclick="document.getElementById('subModal').classList.remove('open');alert('Successfully subscribed!')">Subscribe to Strategy</button>
+  </div>
+</div>
+
+<!-- UNSUBSCRIBE MODAL -->
+<div class="modal-backdrop" id="unsubModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('unsubModal').classList.remove('open')">×</button>
+    <h2 class="modal-title">Confirm Unsubscription</h2>
+    <p class="modal-subtitle">Are you sure you want to unsubscribe from <strong>BANKNIFTY Options scalping</strong>?</p>
+    <div class="alert alert-warning">
+      <strong>Warning:</strong> Unsubscribing will stop all future trades for this strategy. Any open positions will remain active but no new trades will be executed.
+    </div>
+    <button class="btn-subscribe" style="background:var(--red-600);" onclick="document.getElementById('unsubModal').classList.remove('open');alert('Unsubscribed successfully.')">
+      Confirm Unsubscribe
+    </button>
+  </div>
+</div>
+
+<!-- Chat FAB -->
+<button class="chat-fab" title="Support">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<script>
+  document.getElementById('menuBtn')?.addEventListener('click', () =>
+    document.getElementById('navLinks').classList.toggle('open'));
+
+  document.querySelectorAll('.modal-backdrop').forEach(bd => {
+    bd.addEventListener('click', e => { if (e.target === bd) bd.classList.remove('open'); });
+  });
+
+  const bars = document.getElementById('perfBars');
+  if (bars) {
+    const data = [40,-20,60,30,-50,80,-10,70,20,-40,90,10,-30,50,-15,75,35,-60,45,25,-35,55,15,-25,65,5,-45,85,-5,40,-20,55,30];
+    const maxH = Math.max(...data.map(Math.abs));
+    const halfH = 60;
+    data.forEach(v => {
+      const bar = document.createElement('div');
+      bar.className = 'perf-bar ' + (v >= 0 ? 'pos' : 'neg');
+      const h = Math.max(4, Math.round(Math.abs(v) / maxH * halfH));
+      bar.style.height = h + 'px';
+      if (v < 0) { bar.style.marginTop = (halfH - h) + 'px'; bar.style.alignSelf = 'flex-start'; bar.style.borderRadius = '0 0 2px 2px'; }
+      bars.appendChild(bar);
+    });
+  }
+</script>
+</body>
+</html>
